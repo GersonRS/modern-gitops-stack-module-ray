@@ -46,11 +46,14 @@ resource "argocd_application" "operator-crds" {
       "application" = "ray-operator-crds"
       "cluster"     = var.destination_cluster
     }, var.argocd_labels)
+    annotations = {
+      "argocd.argoproj.io/sync-wave" = 2
+    }
   }
 
   timeouts {
-    create = "15m"
-    delete = "15m"
+    create = "5m"
+    delete = "5m"
   }
 
   wait = var.app_autosync == { "allow_empty" = tobool(null), "prune" = tobool(null), "self_heal" = tobool(null) } ? false : true
@@ -87,6 +90,9 @@ resource "argocd_application" "operator-crds" {
         }
         limit = "0"
       }
+      sync_options = [
+        "Replace=true"
+      ]
     }
   }
 
