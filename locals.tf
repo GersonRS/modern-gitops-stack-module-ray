@@ -3,7 +3,7 @@ locals {
   domain_full = format("ray.%s.%s", trimprefix("${var.subdomain}.${var.cluster_name}", "."), var.base_domain)
 
   helm_values = [{
-    ray-cluster = {
+    raycluster = {
       image = {
         repository = "gersonrs/ray-ml"
         tag        = "v1"

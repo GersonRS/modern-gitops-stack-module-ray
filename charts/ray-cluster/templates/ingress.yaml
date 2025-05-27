@@ -1,8 +1,8 @@
-{{- if .Values.ray-cluster.ingress.enabled -}}
-{{- $fullName := include "ray-cluster.nameService" . -}}
-{{- if and .Values.ray-cluster.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.ray-cluster.ingress.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.ray-cluster.ingress.annotations "kubernetes.io/ingress.class" .Values.ray-cluster.ingress.className}}
+{{- if .Values.raycluster.ingress.enabled -}}
+{{- $fullName := include "raycluster.fullname" . -}}
+{{- if and .Values.raycluster.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.raycluster.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.raycluster.ingress.annotations "kubernetes.io/ingress.class" .Values.raycluster.ingress.className}}
   {{- end }}
 {{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -16,18 +16,18 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "ray-cluster.labels" . | nindent 4 }}
-  {{- with .Values.ray-cluster.ingress.annotations }}
+    {{- include "raycluster.labels" . | nindent 4 }}
+  {{- with .Values.raycluster.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.ray-cluster.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
-  ingressClassName: {{ .Values.ray-cluster.ingress.className }}
+  {{- if and .Values.raycluster.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.raycluster.ingress.className }}
   {{- end }}
-  {{- if .Values.ray-cluster.ingress.tls }}
+  {{- if .Values.raycluster.ingress.tls }}
   tls:
-    {{- range .Values.ray-cluster.ingress.tls }}
+    {{- range .Values.raycluster.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -36,7 +36,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ray-cluster.ingress.hosts }}
+    {{- range .Values.raycluster.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -48,11 +48,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}-svc
+                name: {{ $fullName }}
                 port:
                   number: 8265
               {{- else }}
-              serviceName: {{ $fullName }}-svc
+              serviceName: {{ $fullName }}
               servicePort: 8265
               {{- end }}
           {{- end }}
