@@ -1,5 +1,5 @@
 {{- if .Values.ray-cluster.ingress.enabled -}}
-{{- $fullName := include "ray-cluster.fullname" . -}}
+{{- $fullName := include "ray-cluster.nameService" . -}}
 {{- if and .Values.ray-cluster.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ray-cluster.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ray-cluster.ingress.annotations "kubernetes.io/ingress.class" .Values.ray-cluster.ingress.className}}
