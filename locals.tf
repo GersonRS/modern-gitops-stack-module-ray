@@ -17,27 +17,15 @@ locals {
         # - secretRef:
         #     name: my-env-secret
         resources = {
-          limits = {
-            cpu    = 2
-            memory = "4G"
-          }
-          requests = {
-            cpu    = 1
-            memory = "2G"
-          }
+          requests = { for k, v in var.resources.head.requests : k => v if v != null }
+          limits   = { for k, v in var.resources.head.limits : k => v if v != null }
         }
       }
       worker = {
-        replicas = 2
+        replicas = var.replicas
         resources = {
-          limits = {
-            cpu    = 2
-            memory = "4G"
-          }
-          requests = {
-            cpu    = 1
-            memory = "2G"
-          }
+          requests = { for k, v in var.resources.worker.requests : k => v if v != null }
+          limits   = { for k, v in var.resources.worker.limits : k => v if v != null }
         }
       }
       ingress = {

@@ -112,14 +112,29 @@ variable "resources" {
     IMPORTANT: These are not production values. You should always adjust them to your needs.
   EOT
   type = object({
-    requests = optional(object({
-      cpu    = optional(string, "100m")
-      memory = optional(string, "256Mi")
+
+    head = optional(object({
+      requests = optional(object({
+        cpu    = optional(string, "1000m")
+        memory = optional(string, "2G")
+      }), {})
+      limits = optional(object({
+        cpu    = optional(string, "2000m")
+        memory = optional(string, "4G")
+      }), {})
     }), {})
-    limits = optional(object({
-      cpu    = optional(string, "1000m")
-      memory = optional(string, "512Mi")
+
+    worker = optional(object({
+      requests = optional(object({
+        cpu    = optional(string, "1000m")
+        memory = optional(string, "2G")
+      }), {})
+      limits = optional(object({
+        cpu    = optional(string, "2000m")
+        memory = optional(string, "4G")
+      }), {})
     }), {})
+
   })
   default = {}
 }
