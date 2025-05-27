@@ -25,16 +25,16 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/*
-Create chart name and version as used by the chart label.
+Create service name as used by the ingress.
 */}}
-{{- define "raycluster.chart" -}}
+{{- define "raycluster.serviceName" -}}
 {{- printf "%s-%s-%s" .Chart.Name .Values.nameOverride "svc" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "raycluster.serviceName" -}}
+{{- define "raycluster.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
