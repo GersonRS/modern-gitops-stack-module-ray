@@ -11,7 +11,7 @@ variable "project_source_repo" {
 variable "namespace" {
   description = "Namespace where the applications's Kubernetes resources should be created. Namespace will be created in case it doesn't exist."
   type        = string
-  default     = "orchestrator"
+  default     = "mlops"
 }
 
 variable "argocd_namespace" {
