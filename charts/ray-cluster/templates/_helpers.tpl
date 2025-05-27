@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "raycluster.name" -}}
-{{- printf "%s-%s" .Release.Name "kuberay-head" | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-%s" .Release.Name "kuberay" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
