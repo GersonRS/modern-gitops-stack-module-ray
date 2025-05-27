@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/GersonRS/modern-gitops-stack-module-ray/compare/v1.0.0...v1.1.0) (2025-05-27)
+
+
+### 🚀 New Features
+
+* configure project ([6ce74dd](https://github.com/GersonRS/modern-gitops-stack-module-ray/commit/6ce74ddcab96ce838d70c9310662d7811229b230))
+* configure project ([cca648b](https://github.com/GersonRS/modern-gitops-stack-module-ray/commit/cca648b2fd024e4ba7a1dc1574366f36d34ffc6b))
+
 ## [1.1.1](https://github.com/GersonRS/modern-gitops-stack-module-mlflow/compare/v1.1.0...v1.1.1) (2024-08-08)
 
 
