@@ -1,5 +1,6 @@
 {{- if ".Values.raycluster.ingress.enabled" -}}
 {{- $fullName := include "raycluster.name" . -}}
+{{- $serviceName := include "raycluster.serviceName" . -}}
 {{- if and .Values.raycluster.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.raycluster.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.raycluster.ingress.annotations "kubernetes.io/ingress.class" .Values.raycluster.ingress.className}}
@@ -48,11 +49,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}-head-svc
+                name: {{ $serviceName }}
                 port:
                   number: 8265
               {{- else }}
-              serviceName: {{ $fullName }}-head-svc
+              serviceName: {{ $serviceName }}
               servicePort: 8265
               {{- end }}
           {{- end }}

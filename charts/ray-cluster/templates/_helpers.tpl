@@ -3,7 +3,7 @@
 Expand the name of the chart.
 */}}
 {{- define "raycluster.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- default .Release.Name "kuberay-head" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
@@ -22,6 +22,13 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+{{- end -}}
+
+{{/*
+Create service name as used by the ingress.
+*/}}
+{{- define "raycluster.serviceName" -}}
+{{- printf "%s-%s" .Release.Name "kuberay-head-svc" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
